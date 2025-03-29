@@ -4,12 +4,8 @@ using System.Reflection;
 Expression<Func<string, string, string>> getKitDescription =
     (primaryColor, secondaryColor) => $"Primary Color - {primaryColor}, Secondary Color - {secondaryColor}";
 
-//Func<string, string, string> func = getKitDescription.Compile();
-//Console.WriteLine(func("Blue", "White"));
-
-
-
-Console.WriteLine(getKitDescription.ToString());
+Func<string, string, string> func = getKitDescription.Compile();
+Console.WriteLine(func("Blue", "White"));
 
 
 #region Building
@@ -17,21 +13,19 @@ Console.WriteLine(getKitDescription.ToString());
 //ParameterExpression primaryColorParam = Expression.Parameter(typeof(string), "primaryColor");
 //ParameterExpression secondaryColorParam = Expression.Parameter(typeof(string), "secondaryColor");
 
-//ConstantExpression constant1 = Expression.Constant("Primary Color - ");
-//ConstantExpression constant2 = Expression.Constant(", Secondary Color - ");
+//ConstantExpression formatString = Expression.Constant("Primary Color - {0}, Secondary Color - {1}");
 
-//// string.Concat("Primary Color - ", primaryColor, ", Secondary Color - ", secondaryColor)
-//MethodInfo? concatMethod = typeof(string).GetMethod("Concat", new Type[] { typeof(string), typeof(string), typeof(string), typeof(string) });
+//// string.Format("Primary Color - {0}, Secondary Color - {1}", primaryColor, secondaryColor)
+//MethodInfo? formatMethod = typeof(string).GetMethod("Format", new Type[] { typeof(string), typeof(object), typeof(object) });
 
-//MethodCallExpression body = Expression.Call(
-//    concatMethod,
-//    constant1,
+//MethodCallExpression formatExpression = Expression.Call(
+//    formatMethod!,
+//    formatString,
 //    primaryColorParam,
-//    constant2,
 //    secondaryColorParam
 //);
 
-//Expression<Func<string, string, string>> lambda = Expression.Lambda<Func<string, string, string>>(body, primaryColorParam, secondaryColorParam);
+//Expression<Func<string, string, string>> lambda = Expression.Lambda<Func<string, string, string>>(formatExpression, primaryColorParam, secondaryColorParam);
 
 //Func<string, string, string> compiled = lambda.Compile();
 //Console.WriteLine(compiled("Red", "Blue"));
